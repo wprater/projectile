@@ -26,6 +26,10 @@ class Model
                              :to => (lambda {|value| value.to_s}),
                              :from => (lambda {|value| value})
 
+  register_value_transformer :type => :bsonid,
+                             :to => (lambda {|value| value.to_s}),
+                             :from => (lambda {|value| value})
+
   class << self
 
     # these methods are needed because subclasses do not inherit class instance variables
@@ -180,6 +184,7 @@ class Model
     self.class.get_attributes.each do |attribute|
       name = attribute[:name]
       default = attribute[:default]
+      default = BSONIdGenerator.generate if attribute[:type] == :bsonid
       key_path = attribute[:key_path]
       json_value = json.valueForKeyPath(key_path)
       value_to_send = json_value.nil? ? default : json_value
