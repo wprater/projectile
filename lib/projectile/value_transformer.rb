@@ -1,8 +1,8 @@
 module ValueTransformer
   module ClassMethods
     def date_formatter
-      @@date_formatter ||= NSDateFormatter.alloc.init.tap do |date_formatter|
-        date_formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+      @@date_formatter ||= NSDateFormatter.new.tap do |date_formatter|
+        date_formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'.'SSSZ"
       end
     end
 
